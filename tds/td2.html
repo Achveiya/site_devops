@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TD 2 : Base de données</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Styles supplémentaires pour le Markdown */
+        h1, h2, h3, h4 { margin-top: 1.5em; }
+        p { margin-bottom: 1em; line-height: 1.5; }
+        img { max-width: 100%; margin: 1em 0; }
+        pre, code { background: #f4f4f4; padding: 5px; border-radius: 4px; overflow-x: auto; }
+        strong { font-weight: bold; }
+        em { font-style: italic; }
+        ul { padding-left: 1.5em; }
+        li { margin-bottom: 0.5em; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">Projets</a>
+        <a href="td2.html" class="active">Mes TDS</a>
+    </nav>
+
+    <header>
+        <h1>TD 2 : Base de données</h1>
+    </header>
+
+    <section class="container">
+        <h2>Lab 2: Managing Infrastructure as Code (IaC)</h2>
+        <p>Dans ce laboratoire, nous apprenons à gérer une infrastructure en tant que code (IaC) à l’aide de différents outils et techniques. Au lieu de configurer et de déployer manuellement notre infrastructure, nous allons automatiser ce processus à l’aide de code, rendant les déploiements plus rapides et moins sujets aux erreurs. Pour ce faire, nous utilisons plusieurs outils d’infrastructure (Bash, Ansible, Packer, OpenTofu).</p>
+
+        <h3>Prérequis</h3>
+        <ul>
+            <li>Installer <strong>AWS CLI</strong> sur notre environnement local.</li>
+            <li>Créer une clé d’accès AWS (ACCESS Key ID et SECRET ACCESS KEY).</li>
+        </ul>
+        <img src="images/aws.png" alt="AWS Setup">
+        <img src="images/configure.png" alt="Configuration de l'identité">
+
+        <h3>1. Automatisation par Script Bash</h3>
+        <p>L'objectif était de déployer une instance EC2 et un groupe de sécurité via l'AWS CLI. Cette instance sera une page web du script <code>app.js</code>, affichant le message “Hello, World !”</p>
+        <p>Nous avons utilisé 2 scripts Shell :</p>
+        <ul>
+            <li><strong>user-data</strong> : initialisation et configuration de la machine.</li>
+            <li><strong>deploy-ec2-instance</strong> : script principal pour créer le groupe de sécurité, l’instance, et récupérer l’IP publique.</li>
+        </ul>
+        <img src="images/bash.png" alt="Script Bash">
+        <img src="images/test_bash.png" alt="Page Web Bash">
+
+        <h4>Problèmes rencontrés</h4>
+        <ul>
+            <li>Port Node.js incorrect (8080 au lieu de 80).</li>
+            <li>Type d’instance obsolète (“t2.micro” → “t3.micro”).</li>
+            <li>Erreur de malformation du groupe de sécurité corrigée avec <code>tr -d '/r'</code>.</li>
+        </ul>
+        <img src="images/sg.png" alt="Sécurité Bash">
+
+        <h3>2. Configuration avec Ansible</h3>
+        <p>Ansible a été utilisé pour le provisionnement et la configuration logicielle.</p>
+        <p>Architecture :</p>
+        <pre>
+Ansible
+|-- .venv
+|-- create_ec2_instance_playbook.yml
+|-- inventory.aws_ec2.yml
+|-- configure_sample_app_playbook.yml
+|-- roles
+    |-- sample-app
+        |-- files/app.js
+        |-- tasks/main.yml
+    |-- groups_vars/ch2_instances.yml
+        </pre>
+        <p>Commandes principales :</p>
+        <pre>
+ansible-playbook -v create_ec2_instance_playbook.yml
+ansible-playbook -v -i inventory.aws_ec2.yml configure_sample_app_playbook.yml
+        </pre>
+
+        <h4>Problèmes rencontrés</h4>
+        <ul>
+            <li>Installation d’Ansible sur Ubuntu compliquée → solution : environnement virtuel.</li>
+            <li>Permissions des clés Ansible → modification de l’emplacement et permissions.</li>
+        </ul>
+
+        <h3>3. Création d'images avec Packer</h3>
+        <p>Nous avons utilisé Packer pour créer une AMI préconfigurée.</p>
+        <pre>
+wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install packer
+        </pre>
+        <img src="images/packer.png" alt="Packer">
+
+        <h3>4. Provisionnement avec OpenTofu</h3>
+        <pre>
+winget install --exact --id=OpenTofu.Tofu
+        </pre>
+        <p>Après configuration, nous avons appliqué la commande :</p>
+        <pre>
+tofu init
+tofu apply
+        </pre>
+        <img src="images/test_tofu.png" alt="OpenTofu">
+
+        <h3>5. Déploiement EC2 avec module OpenTofu</h3>
+        <pre>
+tofu apply -var ami_id=YOUR_AMI_ID
+        </pre>
+        <img src="images/two.png" alt="Deux instances OpenTofu">
+
+        <h3>Conclusion</h3>
+        <p>Nous avons exploré différents outils et techniques pour gérer l’infrastructure en tant que code (Bash, Ansible, Packer, OpenTofu). Chaque outil a ses avantages et limites, et nous avons pu déployer des instances EC2 de façon automatisée et reproductible.</p>
+    </section>
+</body>
+</html>
