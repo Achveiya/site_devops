@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>TD4 – Version Control, Build Systems & Automated Testing</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>TD4 – Version Control, Build Systems and Automated Testing</h1>
+
+<hr>
+
+<h2>Introduction</h2>
+<p>
+Ce TD avait pour objectif de mettre en pratique des outils essentiels du DevOps moderne : Git, GitHub, NPM, Docker, Jest, SuperTest et OpenTofu.
+L’objectif était de structurer un projet logiciel proprement, automatiser les tâches et garantir la qualité du code grâce aux tests.
+</p>
+
+<hr>
+
+<h2>1. Version Control avec Git</h2>
+<p><strong>Objectifs :</strong></p>
+<ul>
+  <li>Initialiser un dépôt</li>
+  <li>Ajouter et commit des modifications</li>
+  <li>Utiliser les branches</li>
+  <li>Faire des merge et rebase</li>
+  <li>Créer des tags</li>
+</ul>
+
+<p><strong>Commandes utilisées :</strong></p>
+<pre><code>git init
+git add
+git commit
+git checkout -b
+git merge
+git rebase
+git tag
+</code></pre>
+
+<p>Cette partie a permis de comprendre le fonctionnement interne d’un historique Git et la différence entre merge et rebase.</p>
+
+<hr>
+
+<h2>2. Collaboration avec GitHub</h2>
+<p><strong>Objectifs :</strong></p>
+<ul>
+  <li>Créer un dépôt distant</li>
+  <li>Pousser un projet local vers GitHub</li>
+  <li>Créer des branches distantes</li>
+  <li>Ouvrir et fusionner des Pull Requests</li>
+  <li>Configurer la protection de branche</li>
+</ul>
+
+<p><strong>Apports :</strong></p>
+<ul>
+  <li>Workflow collaboratif structuré</li>
+  <li>Revue de code avant intégration</li>
+  <li>Sécurisation de la branche principale</li>
+</ul>
+
+<hr>
+
+<h2>3. Build System avec NPM</h2>
+<p>Configuration d'un projet Node.js :</p>
+<ul>
+  <li>npm init</li>
+  <li>Scripts personnalisés (start, dockerize, test)</li>
+  <li>Gestion des dépendances</li>
+  <li>Séparation dependencies / devDependencies</li>
+</ul>
+
+<p><strong>Scripts :</strong></p>
+<pre><code>npm start
+npm run dockerize
+npm test
+</code></pre>
+
+<p>Automatise les tâches et standardise l’exécution du projet.</p>
+
+<hr>
+
+<h2>4. Containerisation avec Docker</h2>
+<p>Création d'un Dockerfile pour :</p>
+<ul>
+  <li>Définir une image Node spécifique</li>
+  <li>Installer les dépendances</li>
+  <li>Exposer un port</li>
+  <li>Lancer l’application via NPM</li>
+</ul>
+
+<p>Pourquoi c’est important :</p>
+<ul>
+  <li>Environnement reproductible</li>
+  <li>Portabilité</li>
+  <li>Cohérence entre développement et production</li>
+</ul>
+
+<hr>
+
+<h2>5. Gestion des dépendances</h2>
+<ul>
+  <li>Installer des dépendances (express)</li>
+  <li>Installer des dépendances de développement (jest, supertest)</li>
+  <li>Comprendre l’importance du fichier package-lock.json</li>
+  <li>Utiliser npm ci pour des installations reproductibles</li>
+</ul>
+
+<p>Cela garantit des builds stables et prévisibles.</p>
+
+<hr>
+
+<h2>6. Tests automatisés (Application)</h2>
+<ul>
+  <li>Jest pour les tests unitaires</li>
+  <li>SuperTest pour tester les endpoints HTTP</li>
+  <li>Séparation app.js / server.js pour faciliter le test</li>
+</ul>
+
+<p><strong>Exécution :</strong></p>
+<pre><code>npm test</code></pre>
+
+<p>Simulation d'un bug pour observer l’échec des tests, démontrant l’intérêt de l’automatisation.</p>
+
+<hr>
+
+<h2>7. Tests d’infrastructure avec OpenTofu</h2>
+<ul>
+  <li>Déployer temporairement une infrastructure</li>
+  <li>Tester une API déployée</li>
+  <li>Vérifier le code de réponse et le contenu</li>
+  <li>Détruire automatiquement l’infrastructure</li>
+</ul>
+
+<p>Ces tests montrent que l’automatisation ne concerne pas seulement le code applicatif mais aussi l’infrastructure.</p>
+
+<hr>
+
+<h2>8. Bonnes pratiques de test</h2>
+<ul>
+  <li>Pyramide des tests : unitaires, intégration, end-to-end</li>
+  <li>Importance de la couverture de code</li>
+  <li>Test-Driven Development (TDD)</li>
+</ul>
+
+<p>Ces pratiques améliorent la qualité, la maintenabilité et la fiabilité du logiciel.</p>
+
+<hr>
+
+<h2>Conclusion</h2>
+<p>
+Ce TD4 a permis de comprendre comment gérer le code avec Git, collaborer efficacement via GitHub, automatiser les tâches avec NPM, containeriser une application avec Docker et écrire des tests automatisés applicatifs et infrastructurels.
+Il reproduit un workflow DevOps complet combinant gestion de version, automatisation, testing et infrastructure as code.
+</p>
+
+</body>
+</html>
