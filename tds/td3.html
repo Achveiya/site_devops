@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TD 3 : Orchestration</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        h2 { margin-top: 1.5em; }
+        p { line-height: 1.6; }
+        ul { padding-left: 1.5em; }
+        li { margin-bottom: 0.5em; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">Projets</a>
+        <a href="../tds.html" class="active">Mes TDS</a>
+    </nav>
+
+    <header>
+        <h1>TD 3 : Orchestration d’Infrastructure</h1>
+    </header>
+
+    <section class="container">
+
+        <h2>Part 1 : Orchestration de Serveurs avec Ansible</h2>
+        <p><strong>Objectif :</strong> Apprendre à provisionner des instances de serveurs (EC2) et automatiser la configuration logicielle.</p>
+        <ul>
+            <li>Création de 3 instances EC2 sur AWS.</li>
+            <li>Inventaire dynamique basé sur les tags AWS.</li>
+            <li>Déploiement d’une application Node.js avec PM2.</li>
+            <li>Mise en place d’un Load Balancer Nginx.</li>
+            <li>Mises à jour roulantes (rolling updates).</li>
+        </ul>
+
+        <h2>Part 2 : Orchestration de VM avec Packer et OpenTofu</h2>
+        <p><strong>Objectif :</strong> Créer des images immuables et gérer l’infrastructure via le code.</p>
+        <ul>
+            <li>Construction d’une AMI avec Packer.</li>
+            <li>Déploiement via OpenTofu avec Auto Scaling Group.</li>
+            <li>Configuration d’un Application Load Balancer (ALB).</li>
+            <li>Mise à jour logicielle avec Instance Refresh.</li>
+        </ul>
+
+        <h2>Part 3 : Orchestration de Conteneurs avec Docker et Kubernetes</h2>
+        <p><strong>Objectif :</strong> Gérer le cycle de vie des conteneurs et orchestrer dans le cloud.</p>
+        <ul>
+            <li>Conteneurisation avec Docker.</li>
+            <li>Déploiement sur Kubernetes local.</li>
+            <li>Création d’un cluster EKS avec OpenTofu.</li>
+            <li>Stockage des images dans Amazon ECR.</li>
+            <li>Déploiement final avec Load Balancer cloud.</li>
+        </ul>
+
+        <h2>Part 4 : Orchestration Serverless avec AWS Lambda</h2>
+        <p><strong>Objectif :</strong> Déployer sans gérer de serveurs (FaaS).</p>
+        <ul>
+            <li>Écriture d’une fonction Node.js.</li>
+            <li>Déploiement via OpenTofu.</li>
+            <li>Exposition via API Gateway.</li>
+            <li>Mise à jour rapide du code.</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>
+            Ce lab compare plusieurs approches d’orchestration, depuis la gestion de serveurs avec Ansible
+            jusqu’au modèle serverless avec AWS Lambda, en passant par les conteneurs et Kubernetes.
+        </p>
+
+    </section>
+</body>
+</html>
