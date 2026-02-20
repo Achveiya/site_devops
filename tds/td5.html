@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TD 5 : IaC & CI/CD</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        h2 { margin-top: 1.5em; }
+        h3 { margin-top: 1em; }
+        p { line-height: 1.6; }
+        ul { padding-left: 1.5em; }
+        li { margin-bottom: 0.5em; }
+        img { max-width: 100%; margin: 1em 0; }
+        code { background: #f4f4f4; padding: 3px 6px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="../index.html">Projets</a>
+    <a href="../tds.html" class="active">Mes TDS</a>
+</nav>
+
+<header>
+    <h1>TD 5 : Infrastructure as Code & CI/CD</h1>
+</header>
+
+<section class="container">
+
+<h2>Introduction</h2>
+<p>
+L’objectif de ce TD était de mettre en place une infrastructure serverless sur AWS en utilisant OpenTofu,
+puis d’automatiser son déploiement et sa validation via GitHub Actions en respectant les bonnes pratiques
+DevOps (OIDC, rôles IAM, state distant, tests automatisés).
+</p>
+
+<p>
+Cette version contient tous les codes créés pendant le TD, mais pas les branches et tests réalisés sur un
+repo privé.
+</p>
+
+<h2>Partie 1 — Continuous Integration (CI)</h2>
+
+<h3>Mise en place des tests</h3>
+<ul>
+<li>Workflow GitHub Actions déclenché à chaque push</li>
+<li>Installation des dépendances npm</li>
+<li>Exécution des tests Jest</li>
+</ul>
+
+<h3>Test volontaire d’erreur</h3>
+<ul>
+<li>Introduction d’une erreur dans le code</li>
+<li>Observation de l’échec du workflow</li>
+<li>Correction du test pour repasser en succès</li>
+</ul>
+
+<h3>Blocage rencontré</h3>
+<p>
+Une erreur <code>No tests to run</code> apparaissait car le script dans <code>package.json</code>
+n’était pas configuré correctement. Il a fallu remplacer par :
+</p>
+<pre>"test": "jest"</pre>
+
+<img src="images/Testworkflow.png" alt="Workflow tests">
+
+<h2>Partie 2 — Authentification sécurisée AWS (OIDC)</h2>
+
+<p>
+Le but était de permettre à GitHub Actions d’accéder à AWS sans clés statiques,
+en utilisant un provider OIDC et des rôles IAM.
+</p>
+
+<h3>Difficultés</h3>
+<ul>
+<li>Adapter les ARN aux bons rôles</li>
+<li>Configurer correctement les chemins vers le repo GitHub</li>
+<li>Certains fichiers manquants au début du TD</li>
+</ul>
+
+<p>Après configuration, le workflow est passé en succès :</p>
+
+<img src="images/OIDC.png" alt="OIDC validation">
+
+<h2>Partie 3 — Continuous Delivery</h2>
+
+<p>
+L’objectif était d’automatiser le déploiement de l’infrastructure avec OpenTofu
+via GitHub Actions.
+</p>
+
+<h3>Difficultés rencontrées</h3>
+<ul>
+<li>Fichiers manquants après copie du TD4</li>
+<li>Configuration du bucket S3 et DynamoDB</li>
+<li>Problèmes de permissions lors des commandes <code>tofu init</code> et <code>apply</code></li>
+<li>Erreur npm due à la branche non merge</li>
+</ul>
+
+<img src="images/CDpartie1.png" alt="Pipeline CD">
+<img src="images/testfinal.png" alt="Tests finaux">
+
+<h2>Conclusion</h2>
+<p>
+Ce TD a permis de comprendre la mise en place complète d’un pipeline CI/CD avec GitHub Actions et OpenTofu.
+Nous avons appris à automatiser les tests, sécuriser l’accès à AWS, et déployer une infrastructure
+de manière reproductible en appliquant les principes DevOps.
+</p>
+
+</section>
+</body>
+</html>
