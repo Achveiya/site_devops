@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Projet — Emotion Analysis Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Emotion Analysis Chat</h1>
+<h2>Projet d'Orchestration Microservices, Conteneurisation & IA</h2>
+
+<p>
+Emotion Analysis Chat est une application de messagerie intelligente capable
+de détecter l’émotion dominante d’un message (Joy, Fear, Anger) grâce à un modèle NLP en R.
+Le projet démontre l’orchestration d’une architecture polyglotte (Python, R, JavaScript)
+déployée sur Kubernetes.
+</p>
+
+<hr>
+
+<h2>Architecture Microservices</h2>
+
+<h3>Frontend (HTML/JS + Nginx)</h3>
+<ul>
+  <li>Interface de chat moderne et réactive</li>
+  <li>Polling automatique toutes les 5 secondes</li>
+  <li>Affichage dynamique des émotions 😊 😨 😡</li>
+  <li>Communication via API Fetch</li>
+</ul>
+
+<h3>Backend (Python - Flask)</h3>
+<ul>
+  <li>API Gateway</li>
+  <li>Appel synchrone au modèle R</li>
+  <li>Horodatage des messages</li>
+  <li>Persistance MongoDB</li>
+  <li>Tests unitaires avec Pytest & Mongomock</li>
+</ul>
+
+<h3>Model-R (R - Plumber)</h3>
+<ul>
+  <li>Pipeline NLP complet</li>
+  <li>Nettoyage & Stemming</li>
+  <li>Vectorisation (DTM)</li>
+  <li>Algorithme Naive Bayes</li>
+  <li>Endpoint /predict</li>
+</ul>
+
+<h3>Base de données (MongoDB)</h3>
+<ul>
+  <li>Stockage BSON</li>
+  <li>Service Kubernetes ClusterIP</li>
+  <li>Accès restreint au Backend</li>
+</ul>
+
+<hr>
+
+<h2>Orchestration Kubernetes</h2>
+
+<ul>
+  <li>Deployments avec 2 replicas Backend</li>
+  <li>Auto-healing</li>
+  <li>Rolling Updates</li>
+  <li>Services DNS internes</li>
+  <li>NodePort 30000 (Frontend)</li>
+  <li>NodePort 30001 (Backend)</li>
+</ul>
+
+<hr>
+
+<h2>CI/CD Pipeline</h2>
+
+<h3>Job 1 — Tests</h3>
+<ul>
+  <li>Python 3.9</li>
+  <li>Pytest + Mongomock</li>
+  <li>Validation API avant build</li>
+</ul>
+
+<h3>Job 2 — Build & Push</h3>
+<ul>
+  <li>Build multi-images Docker</li>
+  <li>Push Docker Hub</li>
+  <li>Images taggées latest</li>
+</ul>
+
+<hr>
+
+<h2>Procédure de Déploiement</h2>
+
+<pre>
+cd Projet/
+./setup.ps1
+kubectl get pods
+</pre>
+
+<p>
+Accès interface : http://localhost:30001/messages
+</p>
+
+<hr>
+
+<h2>Conclusion</h2>
+
+<p>
+Ce projet démontre la maîtrise des concepts DevOps modernes :
+microservices, conteneurisation Docker, orchestration Kubernetes,
+CI/CD automatisé et intégration d’un modèle Machine Learning.
+</p>
+
+</body>
+</html>
